@@ -2,10 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Home/Home";
 import Layout from "./Layout/Layout";
 import NotFound from "./NotFound/NotFound";
-import { Suspense, lazy, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchCars } from "../redux/cars/operations";
-import { fetchFavorites } from "../redux/favorite/operations";
+import { Suspense } from "react";
 
 // const Catalog = lazy(() => import("./Catalog/Catalog"));
 // const Favorites = lazy(() => import("./Favorites/Favorites"));
@@ -13,15 +10,15 @@ import { fetchFavorites } from "../redux/favorite/operations";
 
 export const App = () => {
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchCars());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchCars());
+  // }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchFavorites());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchFavorites());
+  // }, [dispatch]);
 
   return (
     <Suspense fallback={"Loading....."}>
