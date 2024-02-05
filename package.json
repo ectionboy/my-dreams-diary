@@ -1,8 +1,8 @@
 {
-  "name": "get-car",
+  "name": "my-dreams-diary",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://ectionboy.github.io/get-car/",
+  "homepage": "https://ectionboy.github.io/my-dreams-diary/",
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
