@@ -8,12 +8,7 @@ const Header = () => {
   const navToHomePage = () => {
     navigate('/');
   };
-  const navToCatalogPage = () => {
-    navigate('/catalog');
-  };
-  const navToFavoritesPage = () => {
-    navigate('/favorites');
-  };
+
 
   return (
     <>
@@ -35,24 +30,6 @@ const Header = () => {
             size="small"
           >
             Home
-          </Button>
-          <Button
-            sx={{}}
-            component="a"
-            onClick={navToCatalogPage}
-            type="button"
-            size="small"
-          >
-            Catalog
-          </Button>
-          <Button
-            sx={{}}
-            component="a"
-            onClick={navToFavoritesPage}
-            type="button"
-            size="small"
-          >
-            Favorites
           </Button>
         </Box>
       </Container>

@@ -12,7 +12,7 @@ const Home = () => {
         padding: '24px 0',
       }}
     >
-      <Typography variant="h4">Welcome to get car</Typography>
+      <Typography variant="h4">Welcome to My dreams diary</Typography>
     </Container>
   );
 };

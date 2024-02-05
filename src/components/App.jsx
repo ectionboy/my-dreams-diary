@@ -7,8 +7,8 @@ import { useDispatch } from "react-redux";
 import { fetchCars } from "../redux/cars/operations";
 import { fetchFavorites } from "../redux/favorite/operations";
 
-const Catalog = lazy(() => import("./Catalog/Catalog"));
-const Favorites = lazy(() => import("./Favorites/Favorites"));
+// const Catalog = lazy(() => import("./Catalog/Catalog"));
+// const Favorites = lazy(() => import("./Favorites/Favorites"));
 
 
 export const App = () => {
@@ -28,8 +28,6 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
-          <Route path="/catalog" element={<Catalog />} />
-          <Route path="/favorites" element={<Favorites />} />
         </Route>
         <Route path="*" element={<NotFound />} />      
       </Routes>
