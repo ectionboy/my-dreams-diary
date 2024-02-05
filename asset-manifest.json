@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/my-dreams-diary/static/css/main.4e5e31c5.css",
+    "main.js": "/my-dreams-diary/static/js/main.1248df24.js",
+    "static/js/781.c0f92f91.chunk.js": "/my-dreams-diary/static/js/781.c0f92f91.chunk.js",
+    "static/js/739.6b423d50.chunk.js": "/my-dreams-diary/static/js/739.6b423d50.chunk.js",
+    "static/js/86.17846894.chunk.js": "/my-dreams-diary/static/js/86.17846894.chunk.js",
+    "static/js/526.989a0281.chunk.js": "/my-dreams-diary/static/js/526.989a0281.chunk.js",
+    "static/media/sprite.svg": "/my-dreams-diary/static/media/sprite.7d9b0a68ab4ac7ae6f132e72ab14b9a0.svg",
+    "index.html": "/my-dreams-diary/index.html",
+    "main.4e5e31c5.css.map": "/my-dreams-diary/static/css/main.4e5e31c5.css.map",
+    "main.1248df24.js.map": "/my-dreams-diary/static/js/main.1248df24.js.map",
+    "781.c0f92f91.chunk.js.map": "/my-dreams-diary/static/js/781.c0f92f91.chunk.js.map",
+    "739.6b423d50.chunk.js.map": "/my-dreams-diary/static/js/739.6b423d50.chunk.js.map",
+    "86.17846894.chunk.js.map": "/my-dreams-diary/static/js/86.17846894.chunk.js.map",
+    "526.989a0281.chunk.js.map": "/my-dreams-diary/static/js/526.989a0281.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4e5e31c5.css",
+    "static/js/main.1248df24.js"
+  ]
+}
