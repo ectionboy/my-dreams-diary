@@ -1,3 +1,4 @@
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
   logOutThunk,
   loginThunk,
@@ -5,7 +6,6 @@ import {
   signUpThunk,
 } from './authThunk';
 
-const { createSlice, isAnyOf } = require('@reduxjs/toolkit');
 const { initialState } = require('./initialState');
 
 const onPending = state => {

@@ -3,6 +3,7 @@ import Home from "./Home/Home";
 import Layout from "./Layout/Layout";
 import NotFound from "./NotFound/NotFound";
 import { Suspense } from "react";
+import Login from "./Login/Login";
 
 // const Catalog = lazy(() => import("./Catalog/Catalog"));
 // const Favorites = lazy(() => import("./Favorites/Favorites"));
@@ -25,6 +26,7 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
+          <Route path="/login" element={<Login />} />
         </Route>
         <Route path="*" element={<NotFound />} />      
       </Routes>
