@@ -18,7 +18,6 @@ import { isLoggedIn } from '../../redux/selectors';
 const PublickRoute = ({ children }) => {
   const isAuth = useSelector(isLoggedIn);
   const location = useLocation();
-  console.log('PublickRoute', location);
   return !isAuth ? children : <Navigate to={location.state ?? '/'} />;
 };
 
