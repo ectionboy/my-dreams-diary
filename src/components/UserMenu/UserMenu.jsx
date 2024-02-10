@@ -1,4 +1,5 @@
 import { Avatar, Box, Button, Typography } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { logOutThunk } from '../../redux/auth/authThunk';
@@ -20,7 +21,7 @@ const UserMenu = () => {
   return (
 <Box
           component="div"
-          sx={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}
+          sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}
         >
           <Typography variant="body2">Hi, {name ?? ''}</Typography>
           <Avatar
@@ -32,13 +33,14 @@ const UserMenu = () => {
 
   </Avatar>
           <Button
-            sx={{ padding: '0px', textTransform: 'none' }}
+            sx={{ padding: '2px', textTransform: 'none', minWidth: "24px" }}
             variant="outlined"
             onClick={handleButton}
             type="button"
             size="small"
           >
-            Logout
+            <LogoutIcon>
+</LogoutIcon>
           </Button>
         </Box>  )
 }
