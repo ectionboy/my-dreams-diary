@@ -2,23 +2,25 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Home/Home";
 import Layout from "./Layout/Layout";
 import NotFound from "./NotFound/NotFound";
-import { Suspense, useEffect } from "react";
-import Login from "./Login/Login";
+import { Suspense, lazy, useEffect } from "react";
 import Profile from "./Profile/Profile";
 import { useDispatch } from "react-redux";
 import { refreshUserThunk } from "../redux/auth/authThunk";
 import PublicRoute from "guards/PublicRoute/PublicRoute";
+import PrivateRoute from "guards/PrivateRoute/PrivateRoute";
 
-// const Catalog = lazy(() => import("./Catalog/Catalog"));
+const Login = lazy(() => import("./Login/Login"));
 // const Favorites = lazy(() => import("./Favorites/Favorites"));
 
 
 export const App = () => {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(refreshUserThunk());
+    const fetchData = async () => {
+      await dispatch(refreshUserThunk());
+    };
+    fetchData();
   }, [dispatch]);
 
   return (
@@ -27,7 +29,7 @@ export const App = () => {
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
         </Route>
         <Route path="*" element={<NotFound />} />      
       </Routes>

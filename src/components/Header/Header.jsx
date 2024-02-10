@@ -11,6 +11,9 @@ const Header = () => {
   const navToLoginPage = () => {
     navigate('/login');
   };
+  const navToProfilePage = () => {
+    navigate('/profile');
+  };
 
 
   return (
@@ -42,6 +45,15 @@ const Header = () => {
             size="small"
           >
             Login
+          </Button>
+          <Button
+            sx={{}}
+            component="a"
+            onClick={navToProfilePage}
+            type="button"
+            size="small"
+          >
+            Profile
           </Button>
         </Box>
       </Container>
