@@ -243,41 +243,57 @@
 
 import {
   AppBar,
+  Avatar,
   Box,
   Button,
   Container,
   Divider,
   IconButton,
+  ListItemIcon,
   Menu,
   MenuItem,
   Toolbar,
+  Tooltip,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { isLoggedIn } from '../../redux/selectors';
-import UserMenu from 'components/UserMenu/UserMenu';
-import AuthMenu from 'components/AuthMenu/AuthMenu';
+import { nameSelector } from '../../redux/selectors';
+// import AuthMenu from 'components/AuthMenu/AuthMenu';
+import Logout from '@mui/icons-material/Logout';
 
 const Header = () => {
   const pages = ['Home', 'Diary', 'About'];
 
-  const isAuth = useSelector(isLoggedIn);
+  const name = useSelector(nameSelector);
+
+  // const isAuth = useSelector(isLoggedIn);
 
   const navigate = useNavigate();
 
-  const navToHomePage = page => {
-    console.log(page);
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const handleOpenNavMenu = event => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const navToPageNavMenu = page => {
     switch (page) {
       case 'Home':
+        handleCloseNavMenu();
         navigate('/');
         break;
       case 'Diary':
+        handleCloseNavMenu();
         navigate('/diary');
         break;
       case 'About':
+        handleCloseNavMenu();
         navigate('/about');
         break;
 
@@ -285,13 +301,14 @@ const Header = () => {
         break;
     }
   };
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const handleOpenNavMenu = event => {
-    setAnchorElNav(event.currentTarget);
-  };
 
-  const handleCloseNavMenu = event => {
-    setAnchorElNav(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClickUserMenu = event => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -333,7 +350,7 @@ const Header = () => {
                     <Button
                       sx={{}}
                       component="a"
-                      onClick={() => navToHomePage(page)}
+                      onClick={() => navToPageNavMenu(page)}
                       type="button"
                       size="small"
                     >
@@ -347,20 +364,94 @@ const Header = () => {
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map(page => (
                 <Button
-                key={page}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-                component="a"
-                onClick={() => navToHomePage(page)}
-                type="button"
-                size="small"
-              >
-                {page}
-              </Button>
+                  key={page}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  component="a"
+                  onClick={() => navToPageNavMenu(page)}
+                  type="button"
+                  size="small"
+                >
+                  {page}
+                </Button>
               ))}
             </Box>
 
-            {isAuth ? <UserMenu /> : <AuthMenu />}
+            {/* {isAuth ? <UserMenu /> : <AuthMenu />} */}
 
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                textAlign: 'center',
+              }}
+            >
+              <Tooltip title="Account settings">
+                <IconButton
+                  onClick={handleClickUserMenu}
+                  size="small"
+                  sx={{ ml: 2 }}
+                  aria-controls={open ? 'account-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                >
+                  <Avatar
+                    sx={{ bgcolor: '#092ff3' }}
+                    alt="avatar"
+                    src="/broken-image.jpg"
+                  >
+                    {typeof name === 'string'
+                      ? name.trimStart().slice(0, 1).toUpperCase()
+                      : 'A'}
+                  </Avatar>{' '}
+                </IconButton>
+              </Tooltip>
+            </Box>
+            <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={open}
+              onClose={handleCloseUserMenu}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                  mt: 1.5,
+                  '& .MuiAvatar-root': {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  '&::before': {
+                    content: '""',
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: 'background.paper',
+                    transform: 'translateY(-50%) rotate(45deg)',
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            >
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Avatar /> My account
+              </MenuItem>
+              <Divider />
+
+              <MenuItem onClick={handleCloseUserMenu}>
+                <ListItemIcon>
+                  <Logout fontSize="small" />
+                </ListItemIcon>
+                Logout
+              </MenuItem>
+            </Menu>
           </Toolbar>
         </Container>
       </AppBar>
