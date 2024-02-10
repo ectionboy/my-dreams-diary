@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { refreshUserThunk } from "../redux/auth/authThunk";
 import PublicRoute from "guards/PublicRoute/PublicRoute";
 import PrivateRoute from "guards/PrivateRoute/PrivateRoute";
+import Register from "./Register/Register";
 
 const Login = lazy(() => import("./Login/Login"));
 // const Favorites = lazy(() => import("./Favorites/Favorites"));
@@ -28,6 +29,7 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
+          <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
         </Route>

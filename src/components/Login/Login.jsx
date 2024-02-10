@@ -42,10 +42,6 @@ import {
   
     const dispatch = useDispatch();
   
-    // const Log = data => {
-    //   dispatch(loginThunk(data));
-    // };
-  
     const Log = async body => {
       try {
         await dispatch(loginThunk(body)).unwrap();
