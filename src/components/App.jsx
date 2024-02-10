@@ -2,8 +2,12 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Home/Home";
 import Layout from "./Layout/Layout";
 import NotFound from "./NotFound/NotFound";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import Login from "./Login/Login";
+import Profile from "./Profile/Profile";
+import { useDispatch } from "react-redux";
+import { refreshUserThunk } from "../redux/auth/authThunk";
+import PublicRoute from "guards/PublicRoute/PublicRoute";
 
 // const Catalog = lazy(() => import("./Catalog/Catalog"));
 // const Favorites = lazy(() => import("./Favorites/Favorites"));
@@ -11,22 +15,19 @@ import Login from "./Login/Login";
 
 export const App = () => {
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchCars());
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(fetchFavorites());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(refreshUserThunk());
+  }, [dispatch]);
 
   return (
     <Suspense fallback={"Loading....."}>
       <Routes>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
         <Route path="*" element={<NotFound />} />      
       </Routes>
