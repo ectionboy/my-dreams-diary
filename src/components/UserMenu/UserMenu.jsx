@@ -1,48 +1,65 @@
-import { Avatar, Box, Button, Typography } from '@mui/material';
+import { Avatar, Box, Button } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
-import React from 'react'
+import SettingsIcon from '@mui/icons-material/Settings';import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOutThunk } from '../../redux/auth/authThunk';
 import { nameSelector } from '../../redux/selectors';
+import { useNavigate } from 'react-router-dom';
 
 const UserMenu = () => {
-    const name = useSelector(nameSelector);
+  const name = useSelector(nameSelector);
 
-    const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const exit = () => {
-      dispatch(logOutThunk());
-    };
+  const dispatch = useDispatch();
 
-    const handleButton = () => {
-        exit();
-      };
+  const exit = () => {
+    dispatch(logOutThunk());
+  };
+
+  const navToProfilePage = () => {
+    navigate('/profile');
+  };
 
   return (
-<Box
-          component="div"
-          sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-        >
-          <Typography variant="body2">Hi, {name ?? ''}</Typography>
-          <Avatar
-        sx={{ bgcolor: "#092ff3" }}
-        alt="avatar"
-        src="/broken-image.jpg"
+    <Box
+      component="div"
+      sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+    >
+      <Button
+        sx={{ padding: '0px', textTransform: 'none', minWidth: '24px' }}
+        onClick={navToProfilePage}
+        type="button"
+        size="small"
       >
-{typeof name === "string" ? name.trimStart().slice(0, 1).toUpperCase() : "A"} 
+        <SettingsIcon sx={{ fontSize: 30 }}  ></SettingsIcon>
+      </Button>
+      <Button
+        sx={{ padding: '2px', textTransform: 'none', minWidth: '24px' }}
+        onClick={navToProfilePage}
+        type="button"
+        size="small"
+      >
+        <Avatar
+          sx={{ bgcolor: '#092ff3' }}
+          alt="avatar"
+          src="/broken-image.jpg"
+        >
+          {typeof name === 'string'
+            ? name.trimStart().slice(0, 1).toUpperCase()
+            : 'A'}
+        </Avatar>
+      </Button>
+      <Button
+        sx={{ padding: '8px 2px', textTransform: 'none', minWidth: '24px' }}
+        onClick={exit}
+        type="button"
+        size="small"
+      >
+        <LogoutIcon></LogoutIcon>
+      </Button>
+    </Box>
+  );
+};
 
-  </Avatar>
-          <Button
-            sx={{ padding: '2px', textTransform: 'none', minWidth: "24px" }}
-            variant="outlined"
-            onClick={handleButton}
-            type="button"
-            size="small"
-          >
-            <LogoutIcon>
-</LogoutIcon>
-          </Button>
-        </Box>  )
-}
-
-export default UserMenu
+export default UserMenu;

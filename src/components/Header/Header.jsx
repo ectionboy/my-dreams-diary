@@ -14,9 +14,6 @@ const Header = () => {
   const navToHomePage = () => {
     navigate('/');
   };
-  const navToProfilePage = () => {
-    navigate('/profile');
-  };
 
 
   return (
@@ -25,9 +22,9 @@ const Header = () => {
         component="header"
         sx={{
           display: 'flex',
-          alignItems: 'baseline',
+          alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '8px 0',
+          padding: '4px 0',
         }}
       >
         <Box component="nav">
@@ -39,15 +36,6 @@ const Header = () => {
             size="small"
           >
             Home
-          </Button>
-          <Button
-            sx={{}}
-            component="a"
-            onClick={navToProfilePage}
-            type="button"
-            size="small"
-          >
-            Profile
           </Button>
         </Box>
         {isAuth ? <UserMenu /> : <AuthMenu />}
