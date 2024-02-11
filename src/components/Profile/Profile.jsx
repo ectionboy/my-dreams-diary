@@ -7,7 +7,7 @@ import { profileSelector } from '../../redux/selectors';
 const Profile = () => {
   const profile = useSelector(profileSelector);
 
-  const [newProfileState, setNewProfileState] = React.useState(null);
+  // const [newProfileState, setNewProfileState] = React.useState(null);
 
   console.log(profile);
 
