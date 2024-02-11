@@ -11,14 +11,12 @@ import {
 import Logout from '@mui/icons-material/Logout';
 
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logOutThunk } from '../../redux/auth/authThunk';
-import { nameSelector } from '../../redux/selectors';
 import { useNavigate } from 'react-router-dom';
+import AvatarComonent from 'components/AvatarComonent/AvatarComonent';
 
 const UserMenu = () => {
-  const name = useSelector(nameSelector);
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -61,15 +59,7 @@ const UserMenu = () => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar
-              sx={{ bgcolor: '#092ff3' }}
-              alt="avatar"
-              src="/broken-image.jpg"
-            >
-              {typeof name === 'string'
-                ? name.trimStart().slice(0, 1).toUpperCase()
-                : 'A'}
-            </Avatar>{' '}
+            <AvatarComonent size={40} />
           </IconButton>
         </Tooltip>
       </Box>
@@ -108,10 +98,9 @@ const UserMenu = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={navToProfilePage}>
-          <Avatar /> My account
+          <Avatar /> My Profile
         </MenuItem>
         <Divider />
-
         <MenuItem onClick={exit}>
           <ListItemIcon>
             <Logout fontSize="small" />
