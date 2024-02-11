@@ -243,33 +243,28 @@
 
 import {
   AppBar,
-  Avatar,
   Box,
   Button,
   Container,
   Divider,
   IconButton,
-  ListItemIcon,
   Menu,
   MenuItem,
   Toolbar,
-  Tooltip,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { nameSelector } from '../../redux/selectors';
-// import AuthMenu from 'components/AuthMenu/AuthMenu';
-import Logout from '@mui/icons-material/Logout';
+import { isLoggedIn } from '../../redux/selectors';
+import AuthMenu from 'components/AuthMenu/AuthMenu';
+import UserMenu from 'components/UserMenu/UserMenu';
 
 const Header = () => {
   const pages = ['Home', 'Diary', 'About'];
 
-  const name = useSelector(nameSelector);
-
-  // const isAuth = useSelector(isLoggedIn);
+  const isAuth = useSelector(isLoggedIn);
 
   const navigate = useNavigate();
 
@@ -300,15 +295,6 @@ const Header = () => {
       default:
         break;
     }
-  };
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClickUserMenu = event => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleCloseUserMenu = () => {
-    setAnchorEl(null);
   };
 
   return (
@@ -376,82 +362,7 @@ const Header = () => {
               ))}
             </Box>
 
-            {/* {isAuth ? <UserMenu /> : <AuthMenu />} */}
-
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                textAlign: 'center',
-              }}
-            >
-              <Tooltip title="Account settings">
-                <IconButton
-                  onClick={handleClickUserMenu}
-                  size="small"
-                  sx={{ ml: 2 }}
-                  aria-controls={open ? 'account-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                >
-                  <Avatar
-                    sx={{ bgcolor: '#092ff3' }}
-                    alt="avatar"
-                    src="/broken-image.jpg"
-                  >
-                    {typeof name === 'string'
-                      ? name.trimStart().slice(0, 1).toUpperCase()
-                      : 'A'}
-                  </Avatar>{' '}
-                </IconButton>
-              </Tooltip>
-            </Box>
-            <Menu
-              anchorEl={anchorEl}
-              id="account-menu"
-              open={open}
-              onClose={handleCloseUserMenu}
-              PaperProps={{
-                elevation: 0,
-                sx: {
-                  overflow: 'visible',
-                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                  mt: 1.5,
-                  '& .MuiAvatar-root': {
-                    width: 32,
-                    height: 32,
-                    ml: -0.5,
-                    mr: 1,
-                  },
-                  '&::before': {
-                    content: '""',
-                    display: 'block',
-                    position: 'absolute',
-                    top: 0,
-                    right: 14,
-                    width: 10,
-                    height: 10,
-                    bgcolor: 'background.paper',
-                    transform: 'translateY(-50%) rotate(45deg)',
-                    zIndex: 0,
-                  },
-                },
-              }}
-              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Avatar /> My account
-              </MenuItem>
-              <Divider />
-
-              <MenuItem onClick={handleCloseUserMenu}>
-                <ListItemIcon>
-                  <Logout fontSize="small" />
-                </ListItemIcon>
-                Logout
-              </MenuItem>
-            </Menu>
+            {isAuth ? <UserMenu /> : <AuthMenu />}
           </Toolbar>
         </Container>
       </AppBar>

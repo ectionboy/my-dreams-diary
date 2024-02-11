@@ -1,6 +1,16 @@
-import { Avatar, Box, Button } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout';
-import SettingsIcon from '@mui/icons-material/Settings';import React from 'react';
+import {
+  Avatar,
+  Box,
+  Divider,
+  IconButton,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Tooltip,
+} from '@mui/material';
+import Logout from '@mui/icons-material/Logout';
+
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOutThunk } from '../../redux/auth/authThunk';
 import { nameSelector } from '../../redux/selectors';
@@ -14,51 +24,102 @@ const UserMenu = () => {
   const dispatch = useDispatch();
 
   const exit = () => {
+    handleCloseUserMenu();
     dispatch(logOutThunk());
   };
 
   const navToProfilePage = () => {
+    handleCloseUserMenu();
     navigate('/profile');
   };
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const open = Boolean(anchorEl);
+  const handleClickUserMenu = event => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <Box
-      component="div"
-      sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-    >
-      <Button
-        sx={{ padding: '0px', textTransform: 'none', minWidth: '24px' }}
-        onClick={navToProfilePage}
-        type="button"
-        size="small"
+    <>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          textAlign: 'center',
+        }}
       >
-        <SettingsIcon sx={{ fontSize: 30 }}  ></SettingsIcon>
-      </Button>
-      <Button
-        sx={{ padding: '2px', textTransform: 'none', minWidth: '24px' }}
-        onClick={navToProfilePage}
-        type="button"
-        size="small"
+        <Tooltip title="Account settings">
+          <IconButton
+            onClick={handleClickUserMenu}
+            size="small"
+            sx={{ ml: 2 }}
+            aria-controls={open ? 'account-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+          >
+            <Avatar
+              sx={{ bgcolor: '#092ff3' }}
+              alt="avatar"
+              src="/broken-image.jpg"
+            >
+              {typeof name === 'string'
+                ? name.trimStart().slice(0, 1).toUpperCase()
+                : 'A'}
+            </Avatar>{' '}
+          </IconButton>
+        </Tooltip>
+      </Box>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleCloseUserMenu}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            mt: 1.5,
+            '& .MuiAvatar-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            '&::before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Avatar
-          sx={{ bgcolor: '#092ff3' }}
-          alt="avatar"
-          src="/broken-image.jpg"
-        >
-          {typeof name === 'string'
-            ? name.trimStart().slice(0, 1).toUpperCase()
-            : 'A'}
-        </Avatar>
-      </Button>
-      <Button
-        sx={{ padding: '8px 2px', textTransform: 'none', minWidth: '24px' }}
-        onClick={exit}
-        type="button"
-        size="small"
-      >
-        <LogoutIcon></LogoutIcon>
-      </Button>
-    </Box>
+        <MenuItem onClick={navToProfilePage}>
+          <Avatar /> My account
+        </MenuItem>
+        <Divider />
+
+        <MenuItem onClick={exit}>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          Logout
+        </MenuItem>
+      </Menu>
+    </>
   );
 };
 
