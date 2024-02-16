@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { profileSelector } from '../../redux/selectors';
 
@@ -29,11 +29,42 @@ const VisuallyHiddenInput = styled('input')({
 const Profile = () => {
   const profile = useSelector(profileSelector);
 
-  const [newProfileState, setNewProfileState] = React.useState(null);
+  const [saveBtnIsDisable, setSaveBtnIsDisable] = useState(true);
 
-  const saveBtnIsDisable = false;
+  const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);
 
-  console.log(profile);
+  useEffect(() => {
+    if (!name && !email) {
+      setName(profile.name);
+      setEmail(profile.email);
+    }
+  }, [email, name, profile.email, profile.name]);
+
+  const inputName = ({ target: { value } }) => {
+    setName(value);
+  };
+  const inputEmail = ({ target: { value } }) => {
+    setEmail(value);
+  };
+
+  useEffect(() => {
+    if (profile) {
+      setSaveBtnIsDisable(true);
+
+      if (profile.name !== name) {
+        setSaveBtnIsDisable(false);
+      }
+
+      if (profile.email !== email) {
+        setSaveBtnIsDisable(false);
+      }
+    }
+  }, [email, name, profile, profile.email, profile.name]);
+
+  // const [newProfileState, setNewProfileState] = useState(null);
+
+  // console.log(profile);
   return (
     <Container
       maxWidth="xl"
@@ -101,10 +132,20 @@ const Profile = () => {
             width: '100%',
           }}
         >
-          <TextField id="name" label="Name" defaultValue={profile.name} />
-          <TextField id="email" label="Email" defaultValue={profile.email} />
+          <TextField
+            id="name"
+            label="Name"
+            defaultValue={profile.name}
+            onChange={inputName}
+          />
+          <TextField
+            id="email"
+            label="Email"
+            defaultValue={profile.email}
+            onChange={inputEmail}
+          />
         </Box>
-        <Button type="submit" variant="contained" disabled={saveBtnIsDisable} >
+        <Button type="submit" variant="contained" disabled={saveBtnIsDisable}>
           Save
         </Button>
       </Box>
