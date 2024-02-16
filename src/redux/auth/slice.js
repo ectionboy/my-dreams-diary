@@ -47,6 +47,8 @@ const refreshUserAuthPending = state => {
 const refreshUserAuthFulfilled = (state, { payload }) => {
   state.isLoggedIn = true;
   state.profile = payload;
+  state.profile.avatar = "https://upload.wikimedia.org/wikipedia/uk/c/c7/Order_phoenix_3.jpg";
+
   state.error = null;
 };
 

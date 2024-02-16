@@ -101,7 +101,7 @@ const Profile = () => {
             <Avatar
               sx={{ bgcolor: '#092ff3', width: 140, height: 140 }}
               alt="avatar"
-              src="/broken-image.jpg"
+              src={profile.avatar}
             >
               {typeof profile.name === 'string'
                 ? profile.name.trimStart().slice(0, 1).toUpperCase()
