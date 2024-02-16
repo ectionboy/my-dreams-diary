@@ -2,8 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { nameSelector } from '../../redux/selectors';
 import { Avatar } from '@mui/material';
-
-const AvatarComonent = ({ size }) => {
+const AvatarComonent = ({ size = 40 }) => {
   const name = useSelector(nameSelector);
   return (
     <Avatar
