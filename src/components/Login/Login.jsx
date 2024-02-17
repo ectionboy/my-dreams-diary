@@ -100,14 +100,6 @@ import {
             padding: '24px 0',
           }}
         >
-          {/* <h2>Sign in</h2> */}
-          {/* <p>You need to sign in first</p> */}
-          {/* <form  onSubmit={formSubmit}>
-          <input type="email" id="email"  value={email} onChange={inputEmail}  required/>
-          <input type="password" id="password" value={password} onChange={inputPassword}  required/>
-          <button type="submit">Sign in</button>
-        </form> */}
-  
           <Typography variant="h4" gutterBottom>
             Sign in
           </Typography>

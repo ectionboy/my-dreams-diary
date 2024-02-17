@@ -13,6 +13,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { profileSelector } from '../../redux/selectors';
+import PasswordChangeModal from 'components/PasswordChangeModal/PasswordChangeModal';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -65,6 +66,21 @@ const Profile = () => {
   // const [newProfileState, setNewProfileState] = useState(null);
 
   // console.log(profile);
+
+  const [open, setOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
+console.log(selectedValue)
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setOpen(false);
+    setSelectedValue(value);
+  };
+
+
+
   return (
     <Container
       maxWidth="xl"
@@ -154,11 +170,20 @@ const Profile = () => {
         <Typography variant="p" component="h2" sx={{ margin: '4px 0' }}>
           Password
         </Typography>
-        <Button variant="contained" size="small" sx={{ ml: '12px' }}>
+        <Button variant="contained" size="small" sx={{ ml: '12px' }} onClick={handleClickOpen}>
           Change
         </Button>
       </Box>
+
+
+      <PasswordChangeModal
+        selectedValue={selectedValue}
+        open={open}
+        onClose={handleClose}
+/>
     </Container>
+
+
   );
 };
 
