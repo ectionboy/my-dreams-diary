@@ -68,17 +68,21 @@ const Profile = () => {
   // console.log(profile);
 
   const [open, setOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
-console.log(selectedValue)
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = (value) => {
     setOpen(false);
-    setSelectedValue(value);
-  };
+    setOldPassword(value.oldPasswordValue);
+    setNewPassword(value.newPasswordValue);
 
+  };
+  console.log(oldPassword)
+
+console.log(newPassword)
 
 
   return (
@@ -177,7 +181,6 @@ console.log(selectedValue)
 
 
       <PasswordChangeModal
-        selectedValue={selectedValue}
         open={open}
         onClose={handleClose}
 />

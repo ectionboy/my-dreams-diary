@@ -15,25 +15,39 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 
 function PasswordChangeModal(props) {
-  const { onClose, selectedValue, open } = props;
+  const { onClose, open } = props;
 
-  const [password, setPassword] = useState('');
+  const [oldPasswordValue, setOldPassword] = useState('');
+  const [newPasswordValue, setNewPassword] = useState('');
+console.log("oldPassword",oldPasswordValue)
+console.log("newPassword",newPasswordValue)
 
-  const inputPassword = ({ target: { value } }) => {
-    setPassword(value);
+  const inputOldPassword = ({ target: { value } }) => {
+    setOldPassword(value);
+  };
+  const inputNewPassword = ({ target: { value } }) => {
+    setNewPassword(value);
   };
 
   const handleClose = () => {
-    onClose(selectedValue);
+    onClose();
+    setOldPassword('');
+    setNewPassword('');
   };
 
-  const handleListItemClick = (value) => {
+  const handleSave = value => {
     onClose(value);
+    setOldPassword('');
+    setNewPassword('');
   };
- 
-  const [showPassword, setShowPassword] = useState(false);
 
-  const handleClickShowPassword = () => setShowPassword(show => !show);
+  const [showOldPassword, setShowOldPassword] = useState(false);
+
+  const handleClickShowOldPassword = () => setShowOldPassword(show => !show);
+
+  const [showNewPassword, setShowNewPassword] = useState(false);
+
+  const handleClickShowNewPassword = () => setShowNewPassword(show => !show);
 
   const handleMouseDownPassword = event => {
     event.preventDefault();
@@ -54,23 +68,45 @@ function PasswordChangeModal(props) {
       >
         <CloseIcon />
       </IconButton>
-      <Box sx={{ mx: 3, my: 1, minWidth: 10, minHeight: 200 }}>
-        <FormControl variant="standard">
-          <InputLabel htmlFor="password">Password</InputLabel>
+      <Box component="form" sx={{display:"flex", flexDirection:"column",gap:2, mx: 3, my: 1, minWidth: 10, minHeight: 200 }}>
+      <FormControl variant="standard">
+          <InputLabel htmlFor="oldPassword">Old password</InputLabel>
           <Input
-            value={password}
-            onChange={inputPassword}
-            id="password"
-            type={showPassword ? 'text' : 'password'}
+            value={oldPasswordValue}
+            onChange={inputOldPassword}
+            id="oldPassword"
+            type={showOldPassword ? 'text' : 'password'}
             required
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
+                  onClick={handleClickShowOldPassword}
                   onMouseDown={handleMouseDownPassword}
                 >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                  {showOldPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+
+        <FormControl variant="standard">
+          <InputLabel htmlFor="newPassword">New password</InputLabel>
+          <Input
+            value={newPasswordValue}
+            onChange={inputNewPassword}
+            id="newPassword"
+            type={showNewPassword ? 'text' : 'password'}
+            required
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowNewPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {showNewPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
             }
@@ -79,8 +115,7 @@ function PasswordChangeModal(props) {
         <Button
           variant="contained"
           size="small"
-          sx={{ ml: '12px' }}
-          onClick={() => handleListItemClick(password)}
+          onClick={() => handleSave({oldPasswordValue, newPasswordValue})}
         >
           Change
         </Button>
