@@ -68,22 +68,22 @@ const Profile = () => {
   // console.log(profile);
 
   const [open, setOpen] = useState(false);
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = (value) => {
+  const handleClose = ({ oldPasswordValue, newPasswordValue }) => {
     setOpen(false);
-    setOldPassword(value.oldPasswordValue);
-    setNewPassword(value.newPasswordValue);
-
+    if (oldPasswordValue && newPasswordValue) {
+      setOldPassword(oldPasswordValue);
+      setNewPassword(newPasswordValue);
+    }
   };
-  console.log(oldPassword)
+  console.log(oldPassword);
 
-console.log(newPassword)
-
+  console.log(newPassword);
 
   return (
     <Container
@@ -174,19 +174,18 @@ console.log(newPassword)
         <Typography variant="p" component="h2" sx={{ margin: '4px 0' }}>
           Password
         </Typography>
-        <Button variant="contained" size="small" sx={{ ml: '12px' }} onClick={handleClickOpen}>
+        <Button
+          variant="contained"
+          size="small"
+          sx={{ ml: '12px' }}
+          onClick={handleClickOpen}
+        >
           Change
         </Button>
       </Box>
 
-
-      <PasswordChangeModal
-        open={open}
-        onClose={handleClose}
-/>
+      <PasswordChangeModal open={open} onClose={handleClose} />
     </Container>
-
-
   );
 };
 

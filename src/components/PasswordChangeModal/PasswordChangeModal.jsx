@@ -30,7 +30,7 @@ console.log("newPassword",newPasswordValue)
   };
 
   const handleClose = () => {
-    onClose();
+    onClose({oldPasswordValue: null, newPasswordValue: null});
     setOldPassword('');
     setNewPassword('');
   };
@@ -52,7 +52,6 @@ console.log("newPassword",newPasswordValue)
   const handleMouseDownPassword = event => {
     event.preventDefault();
   };
-
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle>Change password</DialogTitle>
