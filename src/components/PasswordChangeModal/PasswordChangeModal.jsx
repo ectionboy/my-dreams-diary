@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   Dialog,
@@ -8,37 +9,53 @@ import {
   Input,
   InputAdornment,
   InputLabel,
+  Snackbar,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 
 function PasswordChangeModal(props) {
   const { onClose, open } = props;
+  const [changeBtnIsDisable, setChangeBtnIsDisable] = useState(true);
 
-  const [oldPasswordValue, setOldPassword] = useState('');
-  const [newPasswordValue, setNewPassword] = useState('');
-console.log("oldPassword",oldPasswordValue)
-console.log("newPassword",newPasswordValue)
+  const [oldPasswordValue, setOldPasswordValue] = useState('');
+  const [newPasswordValue, setNewPasswordValue] = useState('');
 
   const inputOldPassword = ({ target: { value } }) => {
-    setOldPassword(value);
+    setOldPasswordValue(value);
   };
   const inputNewPassword = ({ target: { value } }) => {
-    setNewPassword(value);
+    setNewPasswordValue(value);
   };
 
   const handleClose = () => {
-    onClose({oldPasswordValue: null, newPasswordValue: null});
-    setOldPassword('');
-    setNewPassword('');
+    onClose({ oldPasswordValue: null, newPasswordValue: null });
+    setOldPasswordValue('');
+    setNewPasswordValue('');
   };
 
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const handleOpenSnackbar = () => {
+    setOpenSnackbar(true);
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnackbar(false);
+  };
   const handleSave = value => {
+    if (oldPasswordValue === newPasswordValue) {
+      return handleOpenSnackbar();
+    }
     onClose(value);
-    setOldPassword('');
-    setNewPassword('');
+    setOldPasswordValue('');
+    setNewPasswordValue('');
   };
 
   const [showOldPassword, setShowOldPassword] = useState(false);
@@ -52,6 +69,14 @@ console.log("newPassword",newPasswordValue)
   const handleMouseDownPassword = event => {
     event.preventDefault();
   };
+
+  useEffect(() => {
+    setChangeBtnIsDisable(true);
+    if (oldPasswordValue !== '' && newPasswordValue !== '') {
+      setChangeBtnIsDisable(false);
+    }
+  }, [newPasswordValue, oldPasswordValue]);
+
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle>Change password</DialogTitle>
@@ -67,8 +92,19 @@ console.log("newPassword",newPasswordValue)
       >
         <CloseIcon />
       </IconButton>
-      <Box component="form" sx={{display:"flex", flexDirection:"column",gap:2, mx: 3, my: 1, minWidth: 10, minHeight: 200 }}>
-      <FormControl variant="standard">
+      <Box
+        component="form"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          mx: 3,
+          my: 1,
+          minWidth: 10,
+          minHeight: 200,
+        }}
+      >
+        <FormControl variant="standard">
           <InputLabel htmlFor="oldPassword">Old password</InputLabel>
           <Input
             value={oldPasswordValue}
@@ -91,9 +127,12 @@ console.log("newPassword",newPasswordValue)
         </FormControl>
 
         <FormControl variant="standard">
-          <InputLabel htmlFor="newPassword">New password</InputLabel>
+          <InputLabel error={openSnackbar} htmlFor="newPassword">
+            New password
+          </InputLabel>
           <Input
             value={newPasswordValue}
+            error={openSnackbar}
             onChange={inputNewPassword}
             id="newPassword"
             type={showNewPassword ? 'text' : 'password'}
@@ -114,11 +153,26 @@ console.log("newPassword",newPasswordValue)
         <Button
           variant="contained"
           size="small"
-          onClick={() => handleSave({oldPasswordValue, newPasswordValue})}
+          onClick={() => handleSave({ oldPasswordValue, newPasswordValue })}
+          disabled={changeBtnIsDisable}
         >
           Change
         </Button>
       </Box>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={7000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="warning"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Change new password
+        </Alert>
+      </Snackbar>
     </Dialog>
   );
 }

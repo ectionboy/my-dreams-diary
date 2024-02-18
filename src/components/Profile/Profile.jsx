@@ -35,6 +35,12 @@ const Profile = () => {
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
 
+  //   const [newProfileState, setNewProfileState] = useState({
+  //     "name": "",
+  //     "email": "",
+  //     "avatar": profile.avatar
+  // });
+
   useEffect(() => {
     if (!name && !email) {
       setName(profile.name);
@@ -61,11 +67,7 @@ const Profile = () => {
         setSaveBtnIsDisable(false);
       }
     }
-  }, [email, name, profile, profile.email, profile.name]);
-
-  // const [newProfileState, setNewProfileState] = useState(null);
-
-  // console.log(profile);
+  }, [email, name, profile]);
 
   const [open, setOpen] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
@@ -84,7 +86,6 @@ const Profile = () => {
   console.log(oldPassword);
 
   console.log(newPassword);
-
   return (
     <Container
       maxWidth="xl"
