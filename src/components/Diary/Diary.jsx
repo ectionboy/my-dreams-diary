@@ -1,22 +1,13 @@
-import { Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
+import NoneNotes from 'components/NoneNotes/NoneNotes';
 import React from 'react';
 
 const Diary = () => {
+  // const notes = [{qwe:1, qw:2}, {q:1}];
+  const notes = [];
   return (
-    <Container
-      component="section"
-      maxWidth="xl"
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '4px',
-        padding: '24px 0',
-      }}
-    >
-      <Typography variant="h5" sx={{ fontSize: { xs: '1.5rem', md: '3rem' } }}>
-        Welcome on diary page
-      </Typography>
+    <Container component="section" maxWidth="xl">
+      {notes.length > 0 ? 'Notes...' : <NoneNotes />}
     </Container>
   );
 };
