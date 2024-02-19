@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import AddNoteItem from 'components/AddNoteItem/AddNoteItem';
 import NoteItem from 'components/NoteItem/NoteItem';
 import React from 'react';
 
@@ -19,6 +20,7 @@ const NotesList = ({ items }) => {
       {items.map(item => (
         <NoteItem key={item._id} item={item} />
       ))}
+      <AddNoteItem />
     </Box>
   );
 };
