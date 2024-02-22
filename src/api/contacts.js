@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
+axios.defaults.baseURL = 'https://my-dreams-diary-backend.onrender.com';
 
 export const setToken = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;

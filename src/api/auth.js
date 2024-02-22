@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+axios.defaults.baseURL = 'https://my-dreams-diary-backend.onrender.com';
 
 export const setToken = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -11,7 +11,7 @@ export const deleteToken = () => {
 };
 
 export const signUp = async body => {
-  const { data } = await axios.post('users/signup', body);
+  const { data } = await axios.post('users/register', body);
   setToken(data.token);
   return data;
 };
@@ -29,7 +29,7 @@ export const logOut = async () => {
 
 export const refreshUser = async persistedToken => {
   setToken(persistedToken);
-  const { data } = await axios.get('/users/current');
+  const { data } = await axios.get('users/current');
   return data;
 };
 
