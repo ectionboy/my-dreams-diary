@@ -8,7 +8,7 @@ const AvatarComonent = ({ size = 40 }) => {
     <Avatar
       sx={{ bgcolor: '#092ff3', width: size, height: size }}
       alt="avatar"
-      src={profile.avatar}
+      src={profile.avatarURL}
     >
       {typeof profile.name === 'string'
         ? profile.name.trimStart().slice(0, 1).toUpperCase()

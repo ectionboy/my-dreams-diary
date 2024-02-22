@@ -122,7 +122,7 @@ const Profile = () => {
             <Avatar
               sx={{ bgcolor: '#092ff3', width: 140, height: 140 }}
               alt="avatar"
-              src={profile.avatar}
+              src={profile.avatarURL}
             >
               {typeof profile.name === 'string'
                 ? profile.name.trimStart().slice(0, 1).toUpperCase()
