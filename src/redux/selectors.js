@@ -1,4 +1,4 @@
-export const getContacts = state => state.contacts;
+export const getNotes = state => state.diary;
 export const getFilter = state => state.filter.filter;
 
 export const profileSelector = (state) => state.profile.profile;

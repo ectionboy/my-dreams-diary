@@ -4,7 +4,6 @@ import NoteItem from 'components/NoteItem/NoteItem';
 import React from 'react';
 
 const NotesList = ({ items }) => {
-  console.log(items);
   return (
     <Box
       component="ul"

@@ -1,9 +1,24 @@
 import { Container } from '@mui/material';
 import NoneNotes from 'components/NoneNotes/NoneNotes';
 import NotesList from 'components/NotesList/NotesList';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchNotes } from '../../redux/diary/diaryThunk';
+import { getNotes } from '../../redux/selectors';
 
 const Diary = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(fetchNotes());
+    };
+    fetchData();
+  }, [dispatch]);
+
+  const notes2 = useSelector(getNotes);
+
+console.log(notes2.items);
   const notes = [
     {
       _id: '123456gej',
@@ -70,6 +85,7 @@ const Diary = () => {
     },
   ];
   //   const notes = [];
+  
   return (
     <Container
       component="section"

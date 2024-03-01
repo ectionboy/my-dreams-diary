@@ -1,5 +1,5 @@
 import storage from 'redux-persist/lib/storage'
-import { contactsReducer } from "./contacts/slice";
+import { diaryReducer } from "./diary/slice";
 import { filtersReducer } from "./filter/slice";
 import persistReducer from "redux-persist/es/persistReducer";
 import { authReducer } from './auth/slice';
@@ -13,7 +13,7 @@ const profilePersistedReducer = persistReducer(persistConfig, authReducer)
 
 
 export const reducer = {
-    contacts: contactsReducer,
+    diary: diaryReducer,
     filter: filtersReducer,
     profile: profilePersistedReducer,
 }
