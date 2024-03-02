@@ -1,4 +1,4 @@
-export const getNotes = state => state.diary;
+export const getNotesItems = state => state.diary.items;
 export const getFilter = state => state.filter.filter;
 
 export const profileSelector = (state) => state.profile.profile;
