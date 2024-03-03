@@ -33,7 +33,13 @@ const AddNoteItem = () => {
 
   const handleCloseAddNoteModal = () => {
     setOpenAddNoteModal(false);
+    setCategory("");
+    setName("");
+    setDescription("");
+    handleFileClear();
   };
+
+  // category
   const [category, setCategory] = useState('');
 
   const handleChangeCategory = event => {
@@ -45,7 +51,6 @@ const AddNoteItem = () => {
   const handleFileChange = event => {
     const file = event.target.files[0];
     const fileType = file.type;
-
     if (fileType.startsWith('image/')) {
       setSelectedFile(file);
     } else {
@@ -54,6 +59,7 @@ const AddNoteItem = () => {
   };
   const handleFileClear = event => {
     setSelectedFile(null);
+
   }
   // Snackbar
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -69,6 +75,19 @@ const AddNoteItem = () => {
 
     setOpenSnackbar(false);
   };
+
+  // form controll
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+
+  const inputTitle = ({ target: { value } }) => {
+    setName(value);
+  };
+  const inputDescription = ({ target: { value } }) => {
+    setDescription(value);
+  };
+
+
   return (
     <>
       <Card
@@ -88,6 +107,7 @@ const AddNoteItem = () => {
           </Typography>
         </Button>
       </Card>
+      {/* -------form------- */}
       <Dialog
         open={openAddNoteModal}
         onClose={handleCloseAddNoteModal}
@@ -104,6 +124,7 @@ const AddNoteItem = () => {
             gap: '12px',
           }}
         >
+          {/* -------title input------- */}
           <TextField
             autoFocus
             required
@@ -111,7 +132,10 @@ const AddNoteItem = () => {
             id="title"
             name="title"
             label="Title"
+            value={name}
+            onChange={inputTitle}
           />
+          {/* -------category select------- */}
           <FormControl>
             <InputLabel id="category-label">Category</InputLabel>
             <Select
@@ -131,6 +155,7 @@ const AddNoteItem = () => {
               ))}
             </Select>
           </FormControl>
+          {/* -------description input------- */}
           <TextField
             multiline
             rows={4}
@@ -138,7 +163,10 @@ const AddNoteItem = () => {
             id="description"
             name="description"
             label="Description"
+            value={description}
+            onChange={inputDescription}
           />
+          {/* -------photo upload------- */}
           {selectedFile ? (
             <Box
               sx={{
@@ -160,6 +188,7 @@ const AddNoteItem = () => {
             <PhotoUploadBtn handle={handleFileChange} />
           )}
         </DialogContent>
+        {/* -------form actions buttons -------*/}
         <DialogActions sx={{ padding: '0 24px 20px 24px' }}>
           <Button onClick={handleCloseAddNoteModal}>Cancel</Button>
           <Button variant="outlined" type="submit" endIcon={<CreateIcon />}>
@@ -167,6 +196,8 @@ const AddNoteItem = () => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/*------- Alert -------*/}
       <Snackbar
         open={openSnackbar}
         autoHideDuration={7000}
