@@ -20,9 +20,15 @@ import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
 import PhotoUploadBtn from 'components/PhotoUploadBtn/PhotoUploadBtn';
+import { addNewNote } from '../../redux/diary/diaryThunk';
+import { useDispatch, useSelector } from 'react-redux';
+import { getNotesItems } from '../../redux/selectors';
 
 const AddNoteItem = () => {
-  const categories = ["Sport", "Machinery", "Technics", "Electronics" ];
+  const dispatch = useDispatch();
+  const notes = useSelector(getNotesItems);
+
+  const categories = ['Sport', 'Machinery', 'Technics', 'Electronics'];
 
   // Modal
   const [openAddNoteModal, setOpenAddNoteModal] = useState(false);
@@ -33,9 +39,9 @@ const AddNoteItem = () => {
 
   const handleCloseAddNoteModal = () => {
     setOpenAddNoteModal(false);
-    setCategory("");
-    setName("");
-    setDescription("");
+    setCategory('');
+    setTitle('');
+    setDescription('');
     handleFileClear();
   };
 
@@ -54,13 +60,12 @@ const AddNoteItem = () => {
     if (fileType.startsWith('image/')) {
       setSelectedFile(file);
     } else {
-      handleOpenSnackbar()
+      handleOpenSnackbar();
     }
   };
   const handleFileClear = event => {
     setSelectedFile(null);
-
-  }
+  };
   // Snackbar
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
@@ -77,16 +82,42 @@ const AddNoteItem = () => {
   };
 
   // form controll
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
   const inputTitle = ({ target: { value } }) => {
-    setName(value);
+    setTitle(value);
   };
   const inputDescription = ({ target: { value } }) => {
     setDescription(value);
   };
 
+  const createNote = data => {
+    dispatch(addNewNote(data));
+  };
+
+  const formSubmit = e => {
+    e.preventDefault();
+
+    if (notes && isTitleNew(notes, title) !== undefined) {
+      return alert(`${title} is already in diary.`);
+    }
+
+    createNote({
+      title: title,
+      description: description,
+      category: category,
+    });
+    setOpenAddNoteModal(false);
+    setCategory('');
+    setTitle('');
+    setDescription('');
+    handleFileClear();
+  };
+
+  const isTitleNew = (notes, newNote) => {
+    return notes.find(({ title }) => title === newNote);
+  };
 
   return (
     <>
@@ -111,6 +142,7 @@ const AddNoteItem = () => {
       <Dialog
         open={openAddNoteModal}
         onClose={handleCloseAddNoteModal}
+        onSubmit={formSubmit}
         PaperProps={{
           component: 'form',
         }}
@@ -132,7 +164,7 @@ const AddNoteItem = () => {
             id="title"
             name="title"
             label="Title"
-            value={name}
+            value={title}
             onChange={inputTitle}
           />
           {/* -------category select------- */}
@@ -179,7 +211,11 @@ const AddNoteItem = () => {
                 borderRadius: 1,
               }}
             >
-              <Typography>{selectedFile.name.length > 20 ? selectedFile.name.substring(0, 20)+"...": selectedFile.name}</Typography>
+              <Typography>
+                {selectedFile.name.length > 20
+                  ? selectedFile.name.substring(0, 20) + '...'
+                  : selectedFile.name}
+              </Typography>
               <IconButton onClick={handleFileClear} aria-label="Delete photo">
                 <DeleteIcon />
               </IconButton>
