@@ -44,7 +44,6 @@ const NoteItem = ({ item }) => {
             <Button size="small" onClick={openMax}>
               More
             </Button>
-            <Link to="mission">More</Link>
           </Box>
         </CardActions>
         <Outlet />
