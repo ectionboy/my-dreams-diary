@@ -1,18 +1,14 @@
 import {
   Backdrop,
-  Box,
   Button,
   Card,
   CardActions,
   CardContent,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
+
   Typography,
 } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const BigNoteItem = () => {
   const item = {
@@ -26,13 +22,13 @@ const BigNoteItem = () => {
     createdAt: '2024-03-04T00:19:56.053Z',
     updatedAt: '2024-03-04T00:19:56.053Z',
   };
-  const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
+
   const handleClose = () => {
-    setOpen(false);
+    navigate('/diary');
+
   };
-  const handleOpen = () => {
-    setOpen(true);
-  };
+
 
   return (
     // <Card component="li"}>

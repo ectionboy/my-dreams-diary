@@ -7,22 +7,17 @@ import {
   CardMedia,
   Typography,
 } from '@mui/material';
-import BigNoteItem from 'components/BigNoteItem/BigNoteItem';
 import { formatDate } from 'helpers';
-import React, { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import React from 'react';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 const NoteItem = ({ item }) => {
-  const itemDate = item.createdAt;
+  const itemDate = formatDate(item.createdAt);
 
-  const [openBig, setOpenBig] = useState(false);
+  const navigate = useNavigate();
 
-  const handleClickOpenBig = () => {
-    setOpenBig(true);
-  };
-
-  const handleCloseBig = () => {
-    setOpenBig(false);
+  const openMax = () => {
+    navigate(item._id);
   };
   return (
     <>
@@ -43,21 +38,16 @@ const NoteItem = ({ item }) => {
         <CardActions
           sx={{ justifyContent: 'space-between', alignItems: 'baseline' }}
         >
-          <Typography variant="body2">{formatDate(itemDate)}</Typography>
+          <Typography variant="body2">{itemDate}</Typography>
           <Box>
             {/* <Button size="small">Share</Button> */}
-            <Button size="small" onClick={handleClickOpenBig}>
+            <Button size="small" onClick={openMax}>
               More
             </Button>
             <Link to="mission">More</Link>
           </Box>
         </CardActions>
         <Outlet />
-        {/* {openBig ? (
-          <BigNoteItem item={item} isOpen={openBig} close={handleCloseBig} />
-        ) : (
-          ''
-        )} */}
       </Card>
     </>
   );
