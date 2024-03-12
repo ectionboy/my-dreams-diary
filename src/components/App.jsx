@@ -11,6 +11,7 @@ import PrivateRoute from "guards/PrivateRoute/PrivateRoute";
 import Register from "./Register/Register";
 import About from "./About/About";
 import Diary from "./Diary/Diary";
+import BigNoteItem from "./BigNoteItem/BigNoteItem";
 
 const Login = lazy(() => import("./Login/Login"));
 // const Favorites = lazy(() => import("./Favorites/Favorites"));
@@ -34,7 +35,10 @@ export const App = () => {
           <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-          <Route path="/diary" element={<PrivateRoute><Diary /></PrivateRoute>} />
+          <Route path="/diary" element={<PrivateRoute><Diary /></PrivateRoute>} >
+                      <Route path=":noteId" element={<BigNoteItem />} />
+
+          </Route>
           <Route path="/about" element={<About/>} />
         </Route>
         <Route path="*" element={<NotFound />} />      
