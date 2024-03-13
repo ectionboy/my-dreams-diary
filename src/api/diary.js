@@ -10,11 +10,15 @@ export const getAllNotes = async () => {
   const { data } = await axios('diary/getAllNotes');
   return data;
 };
-export const addNote = async newContact => {
-  const { data } = await axios.post('diary/addNote', newContact);
+export const addNote = async newNote => {
+  const { data } = await axios.post('diary/addNote', newNote);
   return data;
 };
-// export const delContact = async contactId => {
-//   const { data } = await axios.delete(`contacts/${contactId}`);
-//   return data;
-// };
+export const delNote = async noteId => {
+  const { data } = await axios.delete(`diary/deleteNote/${noteId}`);
+  return data;
+};
+export const updtNote = async (noteId, newData) => {
+  const { data } = await axios.put(`diary/updateNote/${noteId}`, newData);
+  return data;
+};

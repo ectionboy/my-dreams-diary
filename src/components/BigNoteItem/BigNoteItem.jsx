@@ -8,9 +8,19 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
+// import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+// import { deleteNote, updateNote } from '../../redux/diary/diaryThunk';
 
 const BigNoteItem = () => {
+  // const dispatch = useDispatch();
+
+  // const deleteData = async (noteId) => {
+  //   await dispatch(deleteNote(noteId));
+  // };
+  // const updateData = async (noteId, newData) => {
+  //   await dispatch(updateNote(noteId, newData));
+  // };
   const item = {
     _id: '65e513acc6f6b0e5057f7c46',
     owner: '65d7c9a6835c35f7fb4745ff',

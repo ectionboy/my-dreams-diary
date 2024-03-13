@@ -1,14 +1,14 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { fetchNotes, addNewNote } from './diaryThunk';
+import { fetchNotes, addNewNote, deleteNote, updateNote } from './diaryThunk';
 import { initialState } from './initialState';
-import { getNotes, newNote } from './helpers';
+import { getNotes, newNote, delNote, updtNote } from './helpers';
 
 const STATUS = {
   PENDING: 'pending',
   FULFILLED: 'fulfilled',
   REJECTED: 'rejected',
 };
-const arrThunk = [fetchNotes, addNewNote];
+const arrThunk = [fetchNotes, addNewNote, deleteNote, updateNote];
 const arrTypeThunk = type => arrThunk.map(el => el[type]);
 
 const handlePending = state => {
@@ -33,6 +33,8 @@ const diarySlice = createSlice({
     builder
       .addCase(fetchNotes.fulfilled, getNotes)
       .addCase(addNewNote.fulfilled, newNote)
+      .addCase(deleteNote.fulfilled, delNote)
+      .addCase(updateNote.fulfilled, updtNote)
       .addMatcher(isAnyOf(...arrTypeThunk(PENDING)), handlePending)
       .addMatcher(isAnyOf(...arrTypeThunk(FULFILLED)), handleFulfilled)
       .addMatcher(isAnyOf(...arrTypeThunk(REJECTED)), handleRejected);
